@@ -10,11 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/cssinjs": "^1.24.0",
+    "@tailwindcss/vite": "^4.1.11",
     "antd": "^5.26.6",
-    "antd-style": "^3.7.1",
+    "class-variance-authority": "^0.7.1",
     "classnames": "^2.5.1",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",

@@ -3,6 +3,7 @@ import type { AvatarSize } from "antd/es/avatar/AvatarContext";
 import { useState } from "react";
 import { StyledAvatar } from "./StyledAvatar";
 import { ThemeWrapper } from "./ThemeWrapper";
+import "./index.css";
 
 function App() {
   const [size, setSize] = useState<AvatarSize>("large");

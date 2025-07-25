@@ -1,5 +1,5 @@
-import type { ThemeConfig } from "antd";
-import { ThemeProvider } from "antd-style";
+import { StyleProvider } from "@ant-design/cssinjs";
+import { ConfigProvider, type ThemeConfig } from "antd";
 import type { OverrideToken } from "antd/es/theme/interface";
 import type { PropsWithChildren } from "react";
 
@@ -9,36 +9,16 @@ const avatarToken: OverrideToken["Avatar"] = {
   textFontSizeSM: 12,
 };
 
-type CustomAvatarToken = {
-  iconFontSize: number;
-  iconFontSizeLG: number;
-  iconFontSizeSM: number;
-};
-
-const customAvatarToken: CustomAvatarToken = {
-  iconFontSize: 18,
-  iconFontSizeLG: 28,
-  iconFontSizeSM: 12,
-};
-
 const theme: ThemeConfig = {
   components: {
     Avatar: avatarToken,
   },
 };
 
-const customToken = {
-  customizedToken: {
-    Avatar: customAvatarToken,
-  },
-};
-
-export type CustomTokenType = typeof customToken;
-
 export const ThemeWrapper = (props: PropsWithChildren) => {
   return (
-    <ThemeProvider theme={theme} customToken={customToken}>
-      {props.children}
-    </ThemeProvider>
+    <StyleProvider layer>
+      <ConfigProvider theme={theme}>{props.children}</ConfigProvider>
+    </StyleProvider>
   );
 };

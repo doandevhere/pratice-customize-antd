@@ -1,43 +1,37 @@
 import { Avatar, type AvatarProps } from "antd";
-import { createStyles } from "antd-style";
+import { cva } from "class-variance-authority";
+import cn from "classnames";
 
 type StyledAvatarProps = AvatarProps & { color: "red" | "blue" };
 
-const useStyles = createStyles(
-  ({ cx, prefixCls, token }, props: StyledAvatarProps) => {
-    const { customizedToken } = token;
-    const { color } = props;
-    const { Avatar: customAvatarToken } = customizedToken;
-    const { iconFontSizeSM, iconFontSizeLG, iconFontSize } = customAvatarToken;
+const colorVariants = cva(null, {
+  variants: {
+    color: {
+      red: "bg-red-500",
+      blue: "bg-blue-500",
+    },
+  },
+});
 
-    const createSizeStyles = (size: string, fontSize: number) => ({
-      [`&.${prefixCls}-avatar-${size}`]: {
-        [`.${prefixCls}-avatar-string`]: {
-          fontSize,
-        },
-      },
-    });
-
-    return {
-      avatar: {
-        backgroundColor: cx({
-          [token["red-5"]]: color === "red",
-          [token["blue-5"]]: color === "blue",
-        }),
-
-        [`.${prefixCls}-avatar-string`]: {
-          fontSize: iconFontSize,
-        },
-
-        ...createSizeStyles("sm", iconFontSizeSM),
-        ...createSizeStyles("lg", iconFontSizeLG),
-      },
-    };
-  }
-);
+const sizeVariants = cva(null, {
+  variants: {
+    size: {
+      small: "[&_.ant-avatar-string]:text-xs",
+      default: "[&_.ant-avatar-string]:text-sm",
+      large: "[&_.ant-avatar-string]:text-lg",
+    },
+  },
+});
 
 export const StyledAvatar = (props: StyledAvatarProps) => {
-  const { styles } = useStyles(props);
+  const { color, size = "default" } = props;
 
-  return <Avatar {...props} className={styles.avatar} />;
+  return (
+    <Avatar
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      className={cn(colorVariants({ color }), sizeVariants({ size }))}
+      {...props}
+    />
+  );
 };
